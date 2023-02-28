@@ -1,8 +1,7 @@
 # OTA Update Scripts for Raspberry Pi
----
 A collection of scripts that enable reliable OTA updates for Raspberry Pi based on "Dual Copy" strategy.
 
-**WARNING:** The scripts do not currently support signed updates. As such, please do not use these scripts in a production environment. These scripts are given only for educational purposes.
+**WARNING:** The scripts do not currently support signed updates. As such, please do not use these scripts in a production environment. Please use these scripts for educational purposes only.
 
 ## Overview
 These scripts are capable of automatically updating the root filesystem of a Raspberry Pi. The update is applied through a update file, which is a system image of the root partition that will replace the current root.
@@ -11,7 +10,6 @@ These scripts are capable of automatically updating the root filesystem of a Ras
 The dual-copy update strategy involves two root partitions where one is active while the other remains inactive. The update image is installed on the inactive partition, and once the update is complete, the boot configuration is modified to use the updated partition as the root partition on the next boot. Therefore, both the partitions switch places as "active" and "inactive" after each update. If, for any reason, the update fails (e.g. due to a power supply cut), the boot configuration remains unchanged, preventing bricking of the device.
 
 ## Getting Started
----
 
 ### Prequisites
 Make sure the partitioning structure on the Raspberry Pi is as follows:
@@ -51,7 +49,6 @@ $ sudo bash /update/ota_service.sh
 ```
 
 ## Usage
----
 The versioning of updates is controlled through two files:
 
 - `/update/current`: Contains the version of the current file, formatted as JSON. Example:
@@ -100,7 +97,6 @@ The bash script `ota_service.sh` regularly monitors `/update/latest` for changes
 **NOTE:** Although optional, it is **highly** recommended to provide the checksum of the update file, to ensure the integrity of the downloaded update (and hence avoid bricking). Please do not skip providing checksum of the update outside of testing purposes, or you **will** eventually brick your device.
 
 ## Scripting Overview
----
 High-level, informal overview of how each script works (straight out of personal notes).
 
 ### Update Service | `ota_service.sh`
@@ -127,7 +123,6 @@ High-level, informal overview of how each script works (straight out of personal
 - Create an image of the root file using dd.
 
 ## Contributing
----
 This project aims to be very hackable. Please feel free to fork or contribute as you please. Here are a some ideas to get started:
 
 - **Support for signed updates:** Adding support for signed updates would render the project suitable for use in a production environment. This feature can be easily implemented by including an extra step to decrypt the update.
