@@ -1,0 +1,12 @@
+[Unit]
+Description=OTA Updates Service
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/bin/bash /update/ota_service.sh
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
