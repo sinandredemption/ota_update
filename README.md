@@ -120,13 +120,14 @@ High-level, informal overview of how each script works (straight out of personal
 - Confirm all the dependencies are installed in the root
 - Confirm the update scripts themselves are present.
 - Confirm if `latest` and `current` are present and equal.
-- Create an image of the root file using dd.
+- Create an image of the root file using `dd`.
 
 ## Contributing
 This project aims to be very hackable. Please feel free to fork or contribute as you please. Here are a some ideas to get started:
 
 - **Support for signed updates:** Adding support for signed updates would render the project suitable for use in a production environment. This feature can be easily implemented by including an extra step to decrypt the update.
 - **Ability to update any file of choice:** This feature would be instrumental for updating anything outside of the root partition (for example, files in `/boot` or the persistent data partition). There are several possible implementations for this feature, such as packing the update image together with the files to be updated as a tar archive. However, a crucial consideration would be the ability to support rollback and backup functionalities.
+- **Support for rollback:** Adding this feature would allow the Raspberry Pi to go back to booting from the older partition if signalled. This would enable the user to return to the previous, working partition without having to push a new system image update, which would come handy in a situation where something wrong is detected with the new update. Implementating this feature can be achieved by editing `/boot/cmdline.txt`. However, there are various ways of signaling a rollback, which can be explored to determine the best approach.
 
 ## Relevant Links
 - [SWUpdate](https://sbabic.github.io/swupdate/swupdate.html): Similar software with support for both single-copy and dual-copy approach.
