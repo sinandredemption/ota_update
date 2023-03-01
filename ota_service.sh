@@ -5,7 +5,10 @@ function print_line {
 }
 
 mkdir -p /mnt/data
-mount /dev/mmcblk0p4 /mnt/data || print_line "WARNING: Couldn't mount /dev/mmcblk0p4 to /mnt/data"
+
+if [[ -z $(lsblk | grep "/mnt/data") ]]; then
+    mount /dev/mmcblk0p4 /mnt/data || print_line "WARNING: Couldn't mount /dev/mmcblk0p4 to /mnt/data"
+fi
 
 print_line "Monitoring /update/latest for updates."
 while :

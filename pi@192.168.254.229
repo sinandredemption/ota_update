@@ -97,7 +97,7 @@ img=${update_file%.img*}.img
 print_line "Extracting $update_file to $img..."
 
 # Extract using pbzip2 (uses multiple threads)
-pbzip2 -f --verbose -d $update_file || report_error "Extraction failed."
+pbzip2 --verbose -d $update_file || report_error "Extraction failed."
 
 # Confirm that the raw-image file is present
 stat $img > /dev/null 2>&1 || report_error "Expected file '$img' not found"
