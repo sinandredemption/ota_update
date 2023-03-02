@@ -32,7 +32,7 @@ fi
 
 print_line "Downloading the update from '$1'..."
 # Download the update image file
-curl $1 --output "$update_file" || report_error "Downloading '$1' failed"
+curl $1 --remove-on-error --output "$update_file" || report_error "Downloading '$1' failed"
 
 if [ ! -f "$update_file" ]; then
     report_error "Couldn't download to file $update_file"
@@ -48,6 +48,8 @@ else
     if [[ "$sha256" != "$2" ]]; then
         print_line "EXPECT: $2"
         print_line "ACTUAL: $sha256"
+        echo "Removing $update_file"
+        rm "$update_file"
         report_error "SHA-256 checksums do not match"
     else
         print_line "Verification successful"
