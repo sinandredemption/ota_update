@@ -1,7 +1,9 @@
 #!/bin/bash
 # -- Helper Functions --
 function print_line {
-    echo "[$(date +"%b %d %T") apply_update.sh]: $1"
+    line="[$(date +'%b %d %T') ota_update.sh]: $1"
+    echo "$line" >> /var/log/ota_update.log
+    echo "$line"
 }
 
 function report_error {
