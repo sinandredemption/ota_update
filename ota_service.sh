@@ -17,8 +17,10 @@ while :
 do
     latest_version=$(cat /update/latest | jq -r '.version')
 
+    if [[ -z "$latest_version" ]]; then
+        print_line "No version found. Waiting..."
     # If /update/latest version is different from current version
-    if [[ "$latest_version" != $(cat /update/current | jq -r '.version') ]]; then
+    elif [[ "$latest_version" != $(cat /update/current | jq -r '.version') ]]; then
 
         url=$(cat /update/latest | jq -r '.url')
         print_line "Found new version: $latest_version at url '$url'"
