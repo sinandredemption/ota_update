@@ -1,9 +1,7 @@
 #!/bin/bash
 # -- Helper Functions --
 function print_line {
-    line="[$(date +'%b %d %T') apply_update.sh]: $1"
-    echo "$line" >> /var/log/ota_update.log
-    echo "$line"
+    echo "[$(date +'%b %d %T') apply_update.sh]: $1"
 }
 
 function report_error {
@@ -32,7 +30,7 @@ fi
 
 print_line "Downloading the update from '$1'..."
 # Download the update image file
-curl $1 --remove-on-error --output "$update_file" || report_error "Downloading '$1' failed"
+curl "$1" --output "$update_file" || report_error "Downloading '$1' failed"
 
 if [ ! -f "$update_file" ]; then
     report_error "Couldn't download to file $update_file"

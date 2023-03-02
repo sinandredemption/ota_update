@@ -1,9 +1,7 @@
 #!/bin/bash
 
 function print_line {
-    line="[$(date +'%b %d %T') ota_update.sh]: $1"
-    echo "$line" >> /var/log/ota_update.log
-    echo "$line"
+    echo "[$(date +'%b %d %T') ota_update.sh]: $1"
 }
 
 mkdir -p /mnt/data

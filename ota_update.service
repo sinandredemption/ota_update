@@ -5,6 +5,8 @@ After=network.target
 [Service]
 Type=simple
 ExecStart=/bin/bash /update/ota_service.sh
+StandardOutput=append:/var/log/ota_update.log
+StandardError=append:/var/log/ota_update.log
 Restart=on-failure
 RestartSec=10
 
