@@ -1,4 +1,10 @@
 #!/bin/bash
+
+# -- Globals --
+update_mount_path="/mnt/rootfs" # Path where the updated root will temporarily be mounted
+data_mount_path="/mnt/data"
+update_file="$data_mount_path/rootfs.img.bz2"
+
 # -- Helper Functions --
 function print_line {
     echo "[$(date +'%b %d %T') apply_update.sh]: $1"
@@ -8,11 +14,6 @@ function report_error {
     print_line "ERROR: $1. Exiting."
     exit 1
 }
-
-# -- Globals --
-update_mount_path="/mnt/rootfs" # Path where the updated root will temporarily be mounted
-data_mount_path="/mnt/data"
-update_file="$data_mount_path/rootfs.img.bz2"
 
 # -- Main Script --
 
@@ -134,4 +135,6 @@ cp /boot/cmdline.txt /boot/cmdline.txt.bak || report_error "Couldn't backup /boo
 # Configure the kernel parameters to consider the updated partition as root
 sed -i "s/$active_partition_uuid/$update_partition_uuid/" /boot/cmdline.txt || report_error "Couldn't update /boot/cmdline.txt"
 
+print_line "Deleting update image..."
+rm -rf "$update_file" || print_line "WARNING: Couldn't remove update image file '$update_file'"
 print_line "Update applied successfully"
