@@ -4,9 +4,13 @@ function report_error {
     exit 1
 }
 
+if [[ "$EUID" -ne 0 ]]; then
+    report_error "Please run this script as root"
+fi
+
 if [[ "$1" = "" || "$2" = "" ]]; then
-    echo "Need two arguments (in order): (1) partition of block device and (2) output name without extensions"
-    echo "e.g. bash create_update.sh /dev/sdXN /path/to/update"
+    echo "Usage: ./create_update.sh /dev/sdXN /path/to/update"
+    echo "Replace /dev/sdXN with the partition of the root filesystem on your block device"
     report_error "Not enough arguments"
 fi
 

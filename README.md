@@ -42,7 +42,7 @@ $ sudo cp /update/ota_update.service /etc/systemd/system
 $ sudo systemctl enable --now ota_update.service
 ```
 
-- Alternatively, run the OTA update script manually when needed:
+- *Alternatively*, run the OTA update script manually when needed:
 
 ```
 $ sudo bash /update/ota_service.sh
@@ -71,17 +71,32 @@ The versioning of updates is controlled through two files:
 
 These two files are constantly monitored by the scripts, and as soon as there is a mismatch in versions between by `/update/current` and `/update/latest`, the scripts download the update from the URL pointed by `/update/latest` and apply it.
 
-### Creating a new update
-A update can be created through extracting the filesystem of an already updated device, and then compressed to be sent to other devices over-the-air.
+### Creating a new update image
+A update can be created through extracting the filesystem of an already updated device, and then compressed to be sent to other devices over-the-air. Before creating an update, it is important to check if all the OTA Update scripts are themselves installed along with the dependencies, so that the device may recieve further OTA Updates.
 
-#### Pre-update Check
+The `create_update.sh` script is provided to simplify the process of creating OTA updates. This script performs pre-update checks on the root filesystem, extracts and compresses the root partition image, and saves it to the specified path.
+
+**Usage:** Run the `create_update.sh` script with root privileges.
+
+```
+sudo bash create_update.sh /dev/sdXN /path/to/update
+```
+
+Replace `/dev/sdXN` with the partition of the root filesystem on your block device, and `/path/to/update` with the desired path for the update image file.
+
+**NOTE:** The script would automatically add `.img.bz2` extension at the end of filename, so there is no need to provide them manually.
+
+#### Creating an update image manually
+The `create_update.sh` script can handle the process of creating OTA updates, so manual creation of update images is not required in most cases. The following steps are provided for documentation purposes and may be useful in situations where manual creation is necessary.
+
+##### Pre-update Check
 Boot into the Raspberry Pi, and check the following:
 
 - All the dependencies of this project are installed.
 - The update scripts are installed in `/update`, and running.
 - Files `/update/latest` and `/update/current` point to the same version.
 
-#### Creating an update image
+##### Creating an update image
 Remove the SD Card from the Raspberry Pi and follow these steps:
 
 - Extract the root partition of the updated filesystem in `.img` format using a tool like `dd`.
