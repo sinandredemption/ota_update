@@ -111,6 +111,9 @@ The bash script `ota_service.sh` regularly monitors `/update/latest` for changes
 
 **NOTE:** Although optional, it is **highly** recommended to provide the checksum of the update file, to ensure the integrity of the downloaded update (and hence avoid bricking). Please do not skip providing checksum of the update outside of testing purposes, or you **will** eventually brick your device.
 
+### Logs
+All of the output of the scripts is redirected to `/var/log/ota_update.log`.
+
 ## Scripting Overview
 High-level, informal overview of how each script works (straight out of personal notes).
 
@@ -130,7 +133,6 @@ High-level, informal overview of how each script works (straight out of personal
 - The update has been applied, and the system needs to restart
 
 ### Update Creator Script | `create_update.sh`
-**NOTE:** This script is a work in progress and doesn't actually exist.
 
 - Confirm all the dependencies are installed in the root
 - Confirm the update scripts themselves are present.
