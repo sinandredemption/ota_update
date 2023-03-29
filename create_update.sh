@@ -1,4 +1,9 @@
-# Script that creates system image updates with sanity checks
+#!/bin/bash
+
+#
+## Script that creates system image updates with sanity checks
+#
+
 function report_error {
     echo "ERROR: $1. Exiting."
     exit 1
